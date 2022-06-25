@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.4.4/dist/d3.js"></script>
+    <script src="./d3-path-morphing.js"></script>
+</head>
+<body>
+    <style>
+        :root{
+            --viewBox_width: 500px;
+            --viewBox_height: 500px;
+            --rinnegan-container-width:40%;
+            --rinnegan-container-height:40%;
+            --rinnegan-color:red;
+        }
+        .rinnegan-viewBox{
+            width: var(--viewBox_width);
+            height: var(--viewBox_height);
+            background-color: gray;
+            position: relative;
+        }
+        .rinnegan-eye-container{
+            background-color: var(--rinnegan-color);
+            width: var(--rinnegan-container-width);/*have to be a ratio to viewBox*/
+            height: var(--rinnegan-container-height);
+            position: absolute;        
+            border-radius: 50%;
+            /* center */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .rinnegan-eye-blackFrame{
+            --gutter: -5%;
+            width: calc(100% - var(--gutter));
+            height: calc(100% - var(--gutter));
+            transform: translate(calc(var(--gutter)/2),calc(var(--gutter)/2));
+            position: absolute;
+            background: radial-gradient(closest-side, rgb(255 255 255 / 0%) 93%, rgb(0 0 0) 95%, rgb(255 255 255 / 0%) 98%);
+        }
+    </style>
+    <div class="rinnegan-viewBox">
+        <div class="rinnegan-eye-container">
+            <div class="rinnegan-eye-blackFrame"></div>
+            
+        </div>
+    </div>
+    <!-- try -->
+    <svg class="svgContainer" width="150" height="150" viewBox="0 0 217 148" fill="none" xmlns="http://www.w3.org/2000/svg">
+        
+    </svg>
+    <button class="btn1">1111</button>
+    <button class="btn2">2222</button>
+    <script>
+        const svg1 = 'M10.7431 58.128C23.0014 30.8434 72.4301 0 72.4301 0C72.4301 0 23.0011 58.9189 36.4458 80.272C36.4458 93.3212 66.4986 88.9715 66.4986 114.279C66.4986 139.586 54.6355 147.1 32.4915 149.868C10.3475 152.636 0.0665547 111.115 0.0665547 111.115C0.0665547 111.115 -1.51516 85.4126 10.7431 58.128'
+        const svg2 = 'M1 106.219C6.45211e-07 82.5394 46.3438 0 46.3438 0C46.3438 0 34.5042 83.2159 40.9314 95.7321C47.3586 108.248 49.2449 106.219 52.771 120.088C56.2971 133.957 38.7008 148.45 34.504 149.18C30.3072 149.91 13.1928 152.563 6.76552 141.738C0.33824 130.913 -6.4521e-07 129.898 0 106.219'
+
+        const svgContainer = d3.select(".svgContainer")
+        const g = svgContainer.append('g').html(`<svg width="73" height="150" viewBox="0 0 73 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path xd="M10.7431 58.128C23.0014 30.8434 72.4301 0 72.4301 0C72.4301 0 23.0011 58.9189 36.4458 80.272C36.4458 93.3212 66.4986 88.9715 66.4986 114.279C66.4986 139.586 54.6355 147.1 32.4915 149.868C10.3475 152.636 0.0665547 111.115 0.0665547 111.115C0.0665547 111.115 -1.51516 85.4126 10.7431 58.128Z" fill="black"/>
+                    </svg>
+                `)
+
+            g.select('svg path')
+                .transition()
+                .duration(1000)
+                    .attrTween('d', function () {
+                        // var startPath = d3.select('#path1').attr('d'),
+                        // endPath = d3.select('#path2').attr('d');
+                        let startPath = svg1
+                        endPath = svg2
+                        return d3.morphPath(startPath, endPath);
+                    });    
+
+        
+        
+                
+
+        // document.querySelector('.btn1').addEventListener('click', ()=>{
+        //     const timeLine = anime.timeline({
+        //         duration: 2750,
+        //         ease: 'easeOutExpo'
+        //     })
+        //     timeLine.add({
+        //         targets:'.svgContainer .path1',
+        //         d:[
+        //             {
+        //                 value: svg2
+        //             }
+        //         ]
+        //     })
+        // })
+        // document.querySelector('.btn2').addEventListener('click', ()=>{
+        //     const timeLine = anime.timeline({
+        //         duration: 2750,
+        //         ease: 'easeOutExpo'
+        //     })
+        //     timeLine.add({
+        //         targets:'.svgContainer .path1',
+        //         d:[
+        //             {
+        //                 value: svg1
+        //             }
+        //         ]
+        //     })
+        // })
+    </script>
+        
+</body>
+</html>
